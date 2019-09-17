@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="Modelo.Cliente">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marcas">
+      <EntityTypeMapping TypeName="Modelo.Marca">
+        <MappingFragment StoreEntitySet="Marcas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modelos">
+      <EntityTypeMapping TypeName="Modelo.Modelo">
+        <MappingFragment StoreEntitySet="Modelos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="marca_id" ColumnName="marca_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculos">
+      <EntityTypeMapping TypeName="Modelo.Vehiculo">
+        <MappingFragment StoreEntitySet="Vehiculos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="patente" ColumnName="patente" />
+          <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

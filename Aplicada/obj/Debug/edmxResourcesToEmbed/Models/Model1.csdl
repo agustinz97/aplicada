@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dni" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__clien__2F10007B" FromRole="Clientes" ToRole="Vehiculos" />
+    <NavigationProperty Name="Ordenes" Relationship="Model.FK__Ordenes__cliente__6754599E" FromRole="Cliente" ToRole="Ordene" />
+  </EntityType>
+  <EntityType Name="Marca">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Modelos" Relationship="Self.FK__Modelos__marca_i__2B3F6F97" FromRole="Marcas" ToRole="Modelos" />
+  </EntityType>
+  <EntityType Name="Modelo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="marca_id" Type="Int32" />
+    <NavigationProperty Name="Marca" Relationship="Self.FK__Modelos__marca_i__2B3F6F97" FromRole="Modelos" ToRole="Marcas" />
+    <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Vehiculos__model__2E1BDC42" FromRole="Modelos" ToRole="Vehiculos" />
+    <NavigationProperty Name="Servicios" Relationship="Model.FK__Servicios__model__47DBAE45" FromRole="Modelo" ToRole="Servicio" />
+  </EntityType>
+  <EntityType Name="Vehiculo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="patente" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="modelo_id" Type="Int32" />
+    <Property Name="anio" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="cliente_id" Type="Int32" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK__Vehiculos__clien__2F10007B" FromRole="Vehiculos" ToRole="Clientes" />
+    <NavigationProperty Name="Modelo" Relationship="Self.FK__Vehiculos__model__2E1BDC42" FromRole="Vehiculos" ToRole="Modelos" />
+    <NavigationProperty Name="Ordenes" Relationship="Model.FK__Ordenes__vehicul__66603565" FromRole="Vehiculo" ToRole="Ordene" />
+  </EntityType>
+  <Association Name="FK__Vehiculos__clien__2F10007B">
+    <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Modelos__marca_i__2B3F6F97">
+    <End Role="Marcas" Type="Self.Marca" Multiplicity="0..1" />
+    <End Role="Modelos" Type="Self.Modelo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marcas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Modelos">
+        <PropertyRef Name="marca_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vehiculos__model__2E1BDC42">
+    <End Role="Modelos" Type="Self.Modelo" Multiplicity="0..1" />
+    <End Role="Vehiculos" Type="Self.Vehiculo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modelos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="modelo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Marcas" EntityType="Self.Marca" />
+    <EntitySet Name="Modelos" EntityType="Self.Modelo" />
+    <EntitySet Name="Vehiculos" EntityType="Self.Vehiculo" />
+    <AssociationSet Name="FK__Vehiculos__clien__2F10007B" Association="Self.FK__Vehiculos__clien__2F10007B">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Modelos__marca_i__2B3F6F97" Association="Self.FK__Modelos__marca_i__2B3F6F97">
+      <End Role="Marcas" EntitySet="Marcas" />
+      <End Role="Modelos" EntitySet="Modelos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vehiculos__model__2E1BDC42" Association="Self.FK__Vehiculos__model__2E1BDC42">
+      <End Role="Modelos" EntitySet="Modelos" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <EntitySet Name="C__MigrationHistory" EntityType="Model.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="Model.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Model.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Model.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Model.AspNetUser" />
+    <EntitySet Name="Productos" EntityType="Model.Producto" />
+    <EntitySet Name="Servicios" EntityType="Model.Servicio" />
+    <EntitySet Name="ServiciosProductos" EntityType="Model.ServiciosProducto" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Servicios__produ__3D5E1FD2" Association="Model.FK__Servicios__produ__3D5E1FD2">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="ServiciosProducto" EntitySet="ServiciosProductos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Servicios__servi__3C69FB99" Association="Model.FK__Servicios__servi__3C69FB99">
+      <End Role="Servicio" EntitySet="Servicios" />
+      <End Role="ServiciosProducto" EntitySet="ServiciosProductos" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Model.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Servicios__model__47DBAE45" Association="Model.FK__Servicios__model__47DBAE45">
+      <End Role="Modelo" EntitySet="Modelos" />
+      <End Role="Servicio" EntitySet="Servicios" />
+    </AssociationSet>
+    <EntitySet Name="Estados" EntityType="Model.Estado" />
+    <EntitySet Name="Ordenes" EntityType="Model.Ordene" />
+    <EntitySet Name="OrdenesEstados" EntityType="Model.OrdenesEstado" />
+    <EntitySet Name="OrdenesServicios" EntityType="Model.OrdenesServicio" />
+    <AssociationSet Name="FK__Ordenes__mecanic__68487DD7" Association="Model.FK__Ordenes__mecanic__68487DD7">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Ordene" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ordenes__cliente__6754599E" Association="Model.FK__Ordenes__cliente__6754599E">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Ordene" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrdenesEs__estad__71D1E811" Association="Model.FK__OrdenesEs__estad__71D1E811">
+      <End Role="Estado" EntitySet="Estados" />
+      <End Role="OrdenesEstado" EntitySet="OrdenesEstados" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ordenes__vehicul__66603565" Association="Model.FK__Ordenes__vehicul__66603565">
+      <End Role="Vehiculo" EntitySet="Vehiculos" />
+      <End Role="Ordene" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrdenesEs__orden__70DDC3D8" Association="Model.FK__OrdenesEs__orden__70DDC3D8">
+      <End Role="Ordene" EntitySet="Ordenes" />
+      <End Role="OrdenesEstado" EntitySet="OrdenesEstados" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrdenesSe__orden__6B24EA82" Association="Model.FK__OrdenesSe__orden__6B24EA82">
+      <End Role="Ordene" EntitySet="Ordenes" />
+      <End Role="OrdenesServicio" EntitySet="OrdenesServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrdenesSe__servi__6C190EBB" Association="Model.FK__OrdenesSe__servi__6C190EBB">
+      <End Role="Servicio" EntitySet="Servicios" />
+      <End Role="OrdenesServicio" EntitySet="OrdenesServicios" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Model.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="Ordenes" Relationship="Model.FK__Ordenes__mecanic__68487DD7" FromRole="AspNetUser" ToRole="Ordene" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Double" />
+    <NavigationProperty Name="ServiciosProductos" Relationship="Model.FK__Servicios__produ__3D5E1FD2" FromRole="Producto" ToRole="ServiciosProducto" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Servicio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="precio_base" Type="Double" />
+    <NavigationProperty Name="ServiciosProductos" Relationship="Model.FK__Servicios__servi__3C69FB99" FromRole="Servicio" ToRole="ServiciosProducto" />
+    <Property Name="modelo_id" Type="Int32" />
+    <NavigationProperty Name="Modelo" Relationship="Model.FK__Servicios__model__47DBAE45" FromRole="Servicio" ToRole="Modelo" />
+    <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__servi__6C190EBB" FromRole="Servicio" ToRole="OrdenesServicio" />
+  </EntityType>
+  <EntityType Name="ServiciosProducto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="servicio_id" Type="Int32" />
+    <Property Name="producto_id" Type="Int32" />
+    <NavigationProperty Name="Producto" Relationship="Model.FK__Servicios__produ__3D5E1FD2" FromRole="ServiciosProducto" ToRole="Producto" />
+    <NavigationProperty Name="Servicio" Relationship="Model.FK__Servicios__servi__3C69FB99" FromRole="ServiciosProducto" ToRole="Servicio" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Model.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Model.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Servicios__produ__3D5E1FD2">
+    <End Type="Model.Producto" Role="Producto" Multiplicity="0..1" />
+    <End Type="Model.ServiciosProducto" Role="ServiciosProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiciosProducto">
+        <PropertyRef Name="producto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Servicios__servi__3C69FB99">
+    <End Type="Model.Servicio" Role="Servicio" Multiplicity="0..1" />
+    <End Type="Model.ServiciosProducto" Role="ServiciosProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiciosProducto">
+        <PropertyRef Name="servicio_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="FK__Servicios__model__47DBAE45">
+    <End Type="Model.Modelo" Role="Modelo" Multiplicity="0..1" />
+    <End Type="Model.Servicio" Role="Servicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modelo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Servicio">
+        <PropertyRef Name="modelo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="estado1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__estad__71D1E811" FromRole="Estado" ToRole="OrdenesEstado" />
+  </EntityType>
+  <EntityType Name="Ordene">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vehiculo_id" Type="Int32" />
+    <Property Name="cliente_id" Type="Int32" />
+    <Property Name="mecanico_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUser" Relationship="Model.FK__Ordenes__mecanic__68487DD7" FromRole="Ordene" ToRole="AspNetUser" />
+    <NavigationProperty Name="Cliente" Relationship="Model.FK__Ordenes__cliente__6754599E" FromRole="Ordene" ToRole="Cliente" />
+    <NavigationProperty Name="Vehiculo" Relationship="Model.FK__Ordenes__vehicul__66603565" FromRole="Ordene" ToRole="Vehiculo" />
+    <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="Ordene" ToRole="OrdenesEstado" />
+    <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__orden__6B24EA82" FromRole="Ordene" ToRole="OrdenesServicio" />
+  </EntityType>
+  <EntityType Name="OrdenesEstado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orden_id" Type="Int32" />
+    <Property Name="estado_id" Type="Int32" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Estado" Relationship="Model.FK__OrdenesEs__estad__71D1E811" FromRole="OrdenesEstado" ToRole="Estado" />
+    <NavigationProperty Name="Ordene" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="OrdenesEstado" ToRole="Ordene" />
+  </EntityType>
+  <EntityType Name="OrdenesServicio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orden_id" Type="Int32" />
+    <Property Name="servicio_id" Type="Int32" />
+    <NavigationProperty Name="Ordene" Relationship="Model.FK__OrdenesSe__orden__6B24EA82" FromRole="OrdenesServicio" ToRole="Ordene" />
+    <NavigationProperty Name="Servicio" Relationship="Model.FK__OrdenesSe__servi__6C190EBB" FromRole="OrdenesServicio" ToRole="Servicio" />
+  </EntityType>
+  <Association Name="FK__Ordenes__mecanic__68487DD7">
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="Model.Ordene" Role="Ordene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ordene">
+        <PropertyRef Name="mecanico_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ordenes__cliente__6754599E">
+    <End Type="Model.Cliente" Role="Cliente" Multiplicity="0..1" />
+    <End Type="Model.Ordene" Role="Ordene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ordene">
+        <PropertyRef Name="cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrdenesEs__estad__71D1E811">
+    <End Type="Model.Estado" Role="Estado" Multiplicity="0..1" />
+    <End Type="Model.OrdenesEstado" Role="OrdenesEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesEstado">
+        <PropertyRef Name="estado_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ordenes__vehicul__66603565">
+    <End Type="Model.Vehiculo" Role="Vehiculo" Multiplicity="0..1" />
+    <End Type="Model.Ordene" Role="Ordene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ordene">
+        <PropertyRef Name="vehiculo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrdenesEs__orden__70DDC3D8">
+    <End Type="Model.Ordene" Role="Ordene" Multiplicity="0..1" />
+    <End Type="Model.OrdenesEstado" Role="OrdenesEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ordene">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesEstado">
+        <PropertyRef Name="orden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrdenesSe__orden__6B24EA82">
+    <End Type="Model.Ordene" Role="Ordene" Multiplicity="0..1" />
+    <End Type="Model.OrdenesServicio" Role="OrdenesServicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ordene">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesServicio">
+        <PropertyRef Name="orden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrdenesSe__servi__6C190EBB">
+    <End Type="Model.Servicio" Role="Servicio" Multiplicity="0..1" />
+    <End Type="Model.OrdenesServicio" Role="OrdenesServicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesServicio">
+        <PropertyRef Name="servicio_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

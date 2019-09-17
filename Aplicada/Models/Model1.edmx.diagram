@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8397e397a9de4c40bab3dbb7c5a5cd9c" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="Model.Cliente" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Marca" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Modelo" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Vehiculo" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Vehiculos__clien__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Modelos__marca_i__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Vehiculos__model__2E1BDC42" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.875" PointY="8.375" />
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="5.875" PointY="6.125" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="10.375" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="10.375" PointY="7.375" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="8.125" PointY="5" />
+        <EntityTypeShape EntityType="Model.Producto" Width="1.5" PointX="7.875" PointY="2.625" />
+        <EntityTypeShape EntityType="Model.Servicio" Width="1.5" PointX="7.875" PointY="0.625" />
+        <EntityTypeShape EntityType="Model.ServiciosProducto" Width="1.5" PointX="10.125" PointY="0.5" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Model.FK__Servicios__produ__3D5E1FD2" />
+        <AssociationConnector Association="Model.FK__Servicios__servi__3C69FB99" />
+        <AssociationConnector Association="Model.AspNetUserRoles" />
+        <AssociationConnector Association="Model.FK__Servicios__model__47DBAE45" />
+        <EntityTypeShape EntityType="Model.Estado" Width="1.5" PointX="12.375" PointY="12.875" />
+        <EntityTypeShape EntityType="Model.Ordene" Width="1.5" PointX="12.375" PointY="3.375" />
+        <EntityTypeShape EntityType="Model.OrdenesEstado" Width="1.5" PointX="14.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.OrdenesServicio" Width="1.5" PointX="14.625" PointY="3.875" />
+        <AssociationConnector Association="Model.FK__Ordenes__mecanic__68487DD7" />
+        <AssociationConnector Association="Model.FK__Ordenes__cliente__6754599E" />
+        <AssociationConnector Association="Model.FK__OrdenesEs__estad__71D1E811" />
+        <AssociationConnector Association="Model.FK__Ordenes__vehicul__66603565" />
+        <AssociationConnector Association="Model.FK__OrdenesEs__orden__70DDC3D8" />
+        <AssociationConnector Association="Model.FK__OrdenesSe__orden__6B24EA82" />
+        <AssociationConnector Association="Model.FK__OrdenesSe__servi__6C190EBB" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
