@@ -13,6 +13,15 @@ namespace Aplicada.Operario {
     public partial class NuevaOrden {
         
         /// <summary>
+        /// divInicial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divInicial;
+        
+        /// <summary>
         /// parteUno control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace Aplicada.Operario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPatente;
+        
+        /// <summary>
+        /// errorPatente control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label errorPatente;
         
         /// <summary>
         /// datosAuto control.
@@ -148,6 +166,15 @@ namespace Aplicada.Operario {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl parteDos;
         
         /// <summary>
+        /// ddCategorias control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddCategorias;
+        
+        /// <summary>
         /// ddServicios control.
         /// </summary>
         /// <remarks>
@@ -164,6 +191,42 @@ namespace Aplicada.Operario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView listaServicios;
+        
+        /// <summary>
+        /// precioTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label precioTotal;
+        
+        /// <summary>
+        /// ddMecanicos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddMecanicos;
+        
+        /// <summary>
+        /// btnPresupuesto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPresupuesto;
+        
+        /// <summary>
+        /// btnTaller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTaller;
         
         /// <summary>
         /// lblMessage2 control.

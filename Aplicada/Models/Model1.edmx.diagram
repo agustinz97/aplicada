@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="10.375" PointY="7.375" />
         <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="8.125" PointY="5" />
         <EntityTypeShape EntityType="Model.Producto" Width="1.5" PointX="7.875" PointY="2.625" />
-        <EntityTypeShape EntityType="Model.Servicio" Width="1.5" PointX="7.875" PointY="0.625" />
+        <EntityTypeShape EntityType="Model.Servicio" Width="1.5" PointX="7.5" PointY="0.5" />
         <EntityTypeShape EntityType="Model.ServiciosProducto" Width="1.5" PointX="10.125" PointY="0.5" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
@@ -37,6 +37,9 @@
         <AssociationConnector Association="Model.FK__OrdenesEs__orden__70DDC3D8" />
         <AssociationConnector Association="Model.FK__OrdenesSe__orden__6B24EA82" />
         <AssociationConnector Association="Model.FK__OrdenesSe__servi__6C190EBB" />
+        <AssociationConnector Association="Model.FK__OrdenesEs__usuar__02FC7413" />
+        <EntityTypeShape EntityType="Model.Categoria" Width="1.5" PointX="3.375" PointY="8.875" />
+        <AssociationConnector Association="Model.FK__Servicios__categ__160F4887" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

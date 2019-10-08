@@ -163,6 +163,15 @@
       <End Role="Servicio" EntitySet="Servicios" />
       <End Role="OrdenesServicio" EntitySet="OrdenesServicios" />
     </AssociationSet>
+    <AssociationSet Name="FK__OrdenesEs__usuar__02FC7413" Association="Model.FK__OrdenesEs__usuar__02FC7413">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="OrdenesEstado" EntitySet="OrdenesEstados" />
+    </AssociationSet>
+    <EntitySet Name="Categorias" EntityType="Model.Categoria" />
+    <AssociationSet Name="FK__Servicios__categ__160F4887" Association="Model.FK__Servicios__categ__160F4887">
+      <End Role="Categoria" EntitySet="Categorias" />
+      <End Role="Servicio" EntitySet="Servicios" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -223,6 +232,7 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
     <NavigationProperty Name="Ordenes" Relationship="Model.FK__Ordenes__mecanic__68487DD7" FromRole="AspNetUser" ToRole="Ordene" />
+    <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__usuar__02FC7413" FromRole="AspNetUser" ToRole="OrdenesEstado" />
   </EntityType>
   <EntityType Name="Producto">
     <Key>
@@ -245,6 +255,8 @@
     <Property Name="modelo_id" Type="Int32" />
     <NavigationProperty Name="Modelo" Relationship="Model.FK__Servicios__model__47DBAE45" FromRole="Servicio" ToRole="Modelo" />
     <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__servi__6C190EBB" FromRole="Servicio" ToRole="OrdenesServicio" />
+    <Property Name="categoria" Type="Int32" />
+    <NavigationProperty Name="Categoria1" Relationship="Model.FK__Servicios__categ__160F4887" FromRole="Servicio" ToRole="Categoria" />
   </EntityType>
   <EntityType Name="ServiciosProducto">
     <Key>
@@ -346,6 +358,8 @@
     <NavigationProperty Name="Vehiculo" Relationship="Model.FK__Ordenes__vehicul__66603565" FromRole="Ordene" ToRole="Vehiculo" />
     <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="Ordene" ToRole="OrdenesEstado" />
     <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__orden__6B24EA82" FromRole="Ordene" ToRole="OrdenesServicio" />
+    <Property Name="operario_id" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
+    <Property Name="forma_pago" Type="Int32" />
   </EntityType>
   <EntityType Name="OrdenesEstado">
     <Key>
@@ -357,6 +371,8 @@
     <Property Name="fecha" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Estado" Relationship="Model.FK__OrdenesEs__estad__71D1E811" FromRole="OrdenesEstado" ToRole="Estado" />
     <NavigationProperty Name="Ordene" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="OrdenesEstado" ToRole="Ordene" />
+    <Property Name="usuario_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Model.FK__OrdenesEs__usuar__02FC7413" FromRole="OrdenesEstado" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="OrdenesServicio">
     <Key>
@@ -449,6 +465,38 @@
       </Principal>
       <Dependent Role="OrdenesServicio">
         <PropertyRef Name="servicio_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrdenesEs__usuar__02FC7413">
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="Model.OrdenesEstado" Role="OrdenesEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesEstado">
+        <PropertyRef Name="usuario_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Servicios" Relationship="Model.FK__Servicios__categ__160F4887" FromRole="Categoria" ToRole="Servicio" />
+  </EntityType>
+  <Association Name="FK__Servicios__categ__160F4887">
+    <End Type="Model.Categoria" Role="Categoria" Multiplicity="0..1" />
+    <End Type="Model.Servicio" Role="Servicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Servicio">
+        <PropertyRef Name="categoria" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -71,24 +71,40 @@
         </a>
       </li>
 
-      <%if (Request.RequestContext.HttpContext.User.IsInRole("Operario")) {%>
+      <%if (Request.RequestContext.HttpContext.User.IsInRole("Operario") || Request.RequestContext.HttpContext.User.IsInRole("Administrador"))
+        {%>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-file-invoice"></i>
-          <span>Ordenes</span>
+          <span>Operario</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <asp:HyperLink NavigateUrl="~/Operario/NuevaOrden.aspx" text="Nueva orden" runat="server" CssClass="dropdown-item"/>
+            <asp:HyperLink NavigateUrl="~/Operario/Buscar.aspx" text="Buscar orden" runat="server" CssClass="dropdown-item"/>
         </div>
       </li>
-      <% }else if(Request.RequestContext.HttpContext.User.IsInRole("Mecanico")){%>
+      <% }
+        if (Request.RequestContext.HttpContext.User.IsInRole("Mecanico") || Request.RequestContext.HttpContext.User.IsInRole("Administrador"))
+        {%>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-file-invoice"></i>
-          <span>Ordenes</span>
+          <span>Mecanico</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <asp:HyperLink NavigateUrl="~/Mecanico/Ordenes.aspx" text="Mis ordenes" runat="server" CssClass="dropdown-item"/>
+            <asp:HyperLink NavigateUrl="~/Mecanico/Ordenes.aspx" text="Ordenes asignadas" runat="server" CssClass="dropdown-item"/>
+        </div>
+      </li>
+      <% }%>
+        <%if (Request.RequestContext.HttpContext.User.IsInRole("Caja") || Request.RequestContext.HttpContext.User.IsInRole("Administrador"))
+        {%>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-file-invoice"></i>
+          <span>Cajero</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <asp:HyperLink NavigateUrl="~/Caja/Buscar.aspx" text="Buscar Orden" runat="server" CssClass="dropdown-item"/>
         </div>
       </li>
       <% }%>

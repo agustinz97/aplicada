@@ -18,8 +18,10 @@ namespace Aplicada.Models
         public Nullable<int> orden_id { get; set; }
         public Nullable<int> estado_id { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+        public string usuario_id { get; set; }
     
         public virtual Estado Estado { get; set; }
         public virtual Ordene Ordene { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

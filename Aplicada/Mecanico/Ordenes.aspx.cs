@@ -27,7 +27,6 @@ namespace Aplicada.Mecanico
 
                 List<Ordene> ordenesAsignadas = new List<Ordene>();
                 List<Ordene> enProceso = new List<Ordene>();
-                List<Ordene> paraRetiro = new List<Ordene>();
                 foreach (Ordene o in ordenesMecanico)
                 {
 
@@ -43,9 +42,7 @@ namespace Aplicada.Mecanico
                     {
                         enProceso.Add(o);
                     }
-                    else if (ultimoEstado.Id == 5){
-                        paraRetiro.Add(o);
-                    }
+
                 }
 
                 listaAsignaciones.DataSource = ordenesAsignadas;
@@ -53,33 +50,7 @@ namespace Aplicada.Mecanico
 
                 listaProceso.DataSource = enProceso;
                 listaProceso.DataBind();
-
-                listaRetiro.DataSource = paraRetiro;
-                listaRetiro.DataBind();
             }
-
-        }
-
-        protected void Entregar_orden(object sender, EventArgs e)
-        {
-
-            Button btn = (Button)sender;
-
-            int idOrden = Int32.Parse(btn.CommandArgument);
-
-            using (var db = new Entities1())
-            {
-                Ordene orden = db.Ordenes.Where(x => x.Id == idOrden).First();
-
-                OrdenesEstado oe = new OrdenesEstado();
-                oe.fecha = DateTime.Now;
-                oe.estado_id = 6;
-                orden.OrdenesEstados.Add(oe);
-
-                db.SaveChanges();
-            }
-
-            Response.Redirect("~/Mecanico/Ordenes.aspx");
 
         }
 

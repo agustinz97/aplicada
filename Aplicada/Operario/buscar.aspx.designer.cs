@@ -10,88 +10,97 @@
 namespace Aplicada.Operario {
     
     
-    public partial class Presupuesto {
+    public partial class buscar {
         
         /// <summary>
-        /// divPresupeusto control.
+        /// stringBusqueda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPresupeusto;
+        protected global::System.Web.UI.WebControls.TextBox stringBusqueda;
         
         /// <summary>
-        /// lblCodigo control.
+        /// divDatos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCodigo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDatos;
         
         /// <summary>
-        /// lblFecha control.
+        /// txtId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
+        protected global::System.Web.UI.WebControls.TextBox txtId;
         
         /// <summary>
-        /// lblVehiculo control.
+        /// txtPatente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVehiculo;
+        protected global::System.Web.UI.WebControls.TextBox txtPatente;
         
         /// <summary>
-        /// lblCliente control.
+        /// txtXCliente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtXCliente;
         
         /// <summary>
-        /// lblVencimiento control.
+        /// txtDni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVencimiento;
+        protected global::System.Web.UI.WebControls.TextBox txtDni;
         
         /// <summary>
-        /// lblOperario control.
+        /// divMecanico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOperario;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMecanico;
         
         /// <summary>
-        /// listaServicios control.
+        /// ddMecanicos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView listaServicios;
+        protected global::System.Web.UI.WebControls.DropDownList ddMecanicos;
         
         /// <summary>
-        /// lblTotal control.
+        /// btnEntregar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotal;
+        protected global::System.Web.UI.WebControls.Button btnEntregar;
+        
+        /// <summary>
+        /// btnTaller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTaller;
         
         /// <summary>
         /// lblMessage control.
@@ -101,23 +110,5 @@ namespace Aplicada.Operario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-        
-        /// <summary>
-        /// divError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divError;
-        
-        /// <summary>
-        /// txtError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label txtError;
     }
 }

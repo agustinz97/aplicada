@@ -26,6 +26,8 @@ namespace Aplicada.Models
         public Nullable<int> cliente_id { get; set; }
         public string mecanico_id { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+        public string operario_id { get; set; }
+        public Nullable<int> forma_pago { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Cliente Cliente { get; set; }

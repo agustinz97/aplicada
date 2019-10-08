@@ -41,5 +41,6 @@ namespace Aplicada.Models
         public virtual DbSet<Ordene> Ordenes { get; set; }
         public virtual DbSet<OrdenesEstado> OrdenesEstados { get; set; }
         public virtual DbSet<OrdenesServicio> OrdenesServicios { get; set; }
+        public virtual DbSet<Categoria> Categorias { get; set; }
     }
 }

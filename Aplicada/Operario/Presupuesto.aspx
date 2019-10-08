@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Presupuesto.aspx.cs" Inherits="Aplicada.Operario.Presupuesto" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="card">
+    <div class="card" runat="server" id="divPresupeusto">
         <div class="card-body" style="border:2px solid grey;">
             <div class="form-row mb-3">
-                <h4 class="card-title">Presupuesto</h4>
+                <div class="col-md-6">
+                    <h4 class="card-title">Presupuesto</h4>
+                </div>
             </div>
             <div class="form-row mb-3">
                 <div class="col-md-12">
@@ -28,6 +30,17 @@
                     <div class="">
                         <asp:Label Text="" ID="lblCliente" runat="server" />
                     </div>
+                </div>
+            </div>
+            <div class="form-row my-2">
+                <div class="col-md-12">
+                    <asp:Label Text="Presupuesto vigente hasta el dia: " ID="lblVencimiento" runat="server" />
+                </div>
+                <div class="col-md-12">
+                    <asp:Label Text="Atendido por " id="lblOperario" runat="server" />
+                </div>
+                <div class="col-md-12">
+                    <asp:Label Text="Documento no válido como factura" runat="server" />
                 </div>
             </div>
             <div class="form-row mt-5">
@@ -56,13 +69,15 @@
             <div class="form-row mb-2">
                 <asp:Label Text="" ID="lblMessage" runat="server" />
             </div>
-            <div class="form-row mt-5">
+        </div>
+    </div>
+    <div class="form-row my-3">
                 <div class="col-md-12">
                     <asp:Button Text="Imprimir" runat="server" CssClass="btn btn-info"/>
-                    <asp:Button Text="Emitir orden" runat="server" CssClass="btn btn-primary float-right" OnClick="Emitir"/>
                 </div>
             </div>
-        </div>
+    <div runat="server" id="divError" visible="false">
+        <asp:Label Text="" id="txtError" runat="server" />
     </div>
 
 </asp:Content>

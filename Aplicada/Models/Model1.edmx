@@ -66,6 +66,13 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="32" />
+        </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="Id" />
@@ -109,6 +116,8 @@
           <Property Name="cliente_id" Type="int" />
           <Property Name="mecanico_id" Type="nvarchar" MaxLength="128" />
           <Property Name="fecha" Type="datetime" />
+          <Property Name="operario_id" Type="nchar" MaxLength="128" />
+          <Property Name="forma_pago" Type="int" />
         </EntityType>
         <EntityType Name="OrdenesEstados">
           <Key>
@@ -118,6 +127,7 @@
           <Property Name="orden_id" Type="int" />
           <Property Name="estado_id" Type="int" />
           <Property Name="fecha" Type="datetime" />
+          <Property Name="usuario_id" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="OrdenesServicios">
           <Key>
@@ -144,6 +154,7 @@
           <Property Name="nombre" Type="varchar" MaxLength="100" />
           <Property Name="precio_base" Type="float" />
           <Property Name="modelo_id" Type="int" />
+          <Property Name="categoria" Type="int" />
         </EntityType>
         <EntityType Name="ServiciosProductos">
           <Key>
@@ -235,6 +246,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__OrdenesEs__usuar__02FC7413">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="OrdenesEstados" Type="Self.OrdenesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdenesEstados">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrdenesSe__orden__6B24EA82">
           <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
           <End Role="OrdenesServicios" Type="Self.OrdenesServicios" Multiplicity="*" />
@@ -256,6 +279,18 @@
             </Principal>
             <Dependent Role="OrdenesServicios">
               <PropertyRef Name="servicio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Servicios__categ__160F4887">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Servicios">
+              <PropertyRef Name="categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,6 +417,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="dbo" store:Type="Tables" />
@@ -417,6 +453,10 @@
             <End Role="Ordenes" EntitySet="Ordenes" />
             <End Role="OrdenesEstados" EntitySet="OrdenesEstados" />
           </AssociationSet>
+          <AssociationSet Name="FK__OrdenesEs__usuar__02FC7413" Association="Self.FK__OrdenesEs__usuar__02FC7413">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OrdenesEstados" EntitySet="OrdenesEstados" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrdenesSe__orden__6B24EA82" Association="Self.FK__OrdenesSe__orden__6B24EA82">
             <End Role="Ordenes" EntitySet="Ordenes" />
             <End Role="OrdenesServicios" EntitySet="OrdenesServicios" />
@@ -424,6 +464,10 @@
           <AssociationSet Name="FK__OrdenesSe__servi__6C190EBB" Association="Self.FK__OrdenesSe__servi__6C190EBB">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="OrdenesServicios" EntitySet="OrdenesServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Servicios__categ__160F4887" Association="Self.FK__Servicios__categ__160F4887">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Servicios" EntitySet="Servicios" />
           </AssociationSet>
           <AssociationSet Name="FK__Servicios__model__47DBAE45" Association="Self.FK__Servicios__model__47DBAE45">
             <End Role="Modelos" EntitySet="Modelos" />
@@ -629,6 +673,15 @@
             <End Role="Servicio" EntitySet="Servicios" />
             <End Role="OrdenesServicio" EntitySet="OrdenesServicios" />
           </AssociationSet>
+          <AssociationSet Name="FK__OrdenesEs__usuar__02FC7413" Association="Model.FK__OrdenesEs__usuar__02FC7413">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="OrdenesEstado" EntitySet="OrdenesEstados" />
+          </AssociationSet>
+          <EntitySet Name="Categorias" EntityType="Model.Categoria" />
+          <AssociationSet Name="FK__Servicios__categ__160F4887" Association="Model.FK__Servicios__categ__160F4887">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Servicio" EntitySet="Servicios" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -689,6 +742,7 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="Ordenes" Relationship="Model.FK__Ordenes__mecanic__68487DD7" FromRole="AspNetUser" ToRole="Ordene" />
+          <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__usuar__02FC7413" FromRole="AspNetUser" ToRole="OrdenesEstado" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -711,6 +765,8 @@
           <Property Name="modelo_id" Type="Int32" />
           <NavigationProperty Name="Modelo" Relationship="Model.FK__Servicios__model__47DBAE45" FromRole="Servicio" ToRole="Modelo" />
           <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__servi__6C190EBB" FromRole="Servicio" ToRole="OrdenesServicio" />
+          <Property Name="categoria" Type="Int32" />
+          <NavigationProperty Name="Categoria1" Relationship="Model.FK__Servicios__categ__160F4887" FromRole="Servicio" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="ServiciosProducto">
           <Key>
@@ -812,6 +868,8 @@
           <NavigationProperty Name="Vehiculo" Relationship="Model.FK__Ordenes__vehicul__66603565" FromRole="Ordene" ToRole="Vehiculo" />
           <NavigationProperty Name="OrdenesEstados" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="Ordene" ToRole="OrdenesEstado" />
           <NavigationProperty Name="OrdenesServicios" Relationship="Model.FK__OrdenesSe__orden__6B24EA82" FromRole="Ordene" ToRole="OrdenesServicio" />
+          <Property Name="operario_id" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
+          <Property Name="forma_pago" Type="Int32" />
         </EntityType>
         <EntityType Name="OrdenesEstado">
           <Key>
@@ -823,6 +881,8 @@
           <Property Name="fecha" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Estado" Relationship="Model.FK__OrdenesEs__estad__71D1E811" FromRole="OrdenesEstado" ToRole="Estado" />
           <NavigationProperty Name="Ordene" Relationship="Model.FK__OrdenesEs__orden__70DDC3D8" FromRole="OrdenesEstado" ToRole="Ordene" />
+          <Property Name="usuario_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK__OrdenesEs__usuar__02FC7413" FromRole="OrdenesEstado" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="OrdenesServicio">
           <Key>
@@ -915,6 +975,38 @@
             </Principal>
             <Dependent Role="OrdenesServicio">
               <PropertyRef Name="servicio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesEs__usuar__02FC7413">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Model.OrdenesEstado" Role="OrdenesEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdenesEstado">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Servicios" Relationship="Model.FK__Servicios__categ__160F4887" FromRole="Categoria" ToRole="Servicio" />
+        </EntityType>
+        <Association Name="FK__Servicios__categ__160F4887">
+          <End Type="Model.Categoria" Role="Categoria" Multiplicity="0..1" />
+          <End Type="Model.Servicio" Role="Servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Servicio">
+              <PropertyRef Name="categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1033,6 +1125,7 @@
           <EntitySetMapping Name="Servicios">
             <EntityTypeMapping TypeName="Model.Servicio">
               <MappingFragment StoreEntitySet="Servicios">
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
                 <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
                 <ScalarProperty Name="precio_base" ColumnName="precio_base" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1068,6 +1161,8 @@
           <EntitySetMapping Name="Ordenes">
             <EntityTypeMapping TypeName="Model.Ordene">
               <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="operario_id" ColumnName="operario_id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="mecanico_id" ColumnName="mecanico_id" />
                 <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
@@ -1079,6 +1174,7 @@
           <EntitySetMapping Name="OrdenesEstados">
             <EntityTypeMapping TypeName="Model.OrdenesEstado">
               <MappingFragment StoreEntitySet="OrdenesEstados">
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="estado_id" ColumnName="estado_id" />
                 <ScalarProperty Name="orden_id" ColumnName="orden_id" />
@@ -1092,6 +1188,14 @@
                 <ScalarProperty Name="servicio_id" ColumnName="servicio_id" />
                 <ScalarProperty Name="orden_id" ColumnName="orden_id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="Model.Categoria">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

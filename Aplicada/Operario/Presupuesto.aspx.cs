@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Aplicada.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Aplicada.Operario
 {
@@ -12,45 +13,64 @@ namespace Aplicada.Operario
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Params["id"] != null)
+
+            if(Request.Params["id"] != null)
             {
                 int id = Int32.Parse(Request.Params["id"]);
-
                 using (var context = new Entities1())
                 {
                     Ordene orden = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
 
                     if (orden != null)
                     {
-                        lblCodigo.Text = "#" + orden.Id;
-                        lblFecha.Text = "Fecha: " + ((DateTime)orden.fecha).ToShortDateString();
+                        Estado ultimoEstado = orden.OrdenesEstados.OrderByDescending(x => x.fecha).First().Estado;
 
-                        lblVehiculo.Text = "Patente: "+orden.Vehiculo.patente + " - Modelo: "+orden.Vehiculo.Modelo.nombre + " - Año: "+orden.Vehiculo.anio;
-
-                        lblCliente.Text = orden.Cliente.apellido + ", " + orden.Cliente.nombre + " - DNI: " + orden.Cliente.dni;
-
-                        List<Servicio> servicios = new List<Servicio>();
-
-                        foreach(OrdenesServicio os in orden.OrdenesServicios){
-
-                            servicios.Add(os.Servicio);
-
-                        }
-
-                        listaServicios.DataSource = servicios;
-                        listaServicios.DataBind();
-
-                        float precioFinal = 0;
-                        foreach (Servicio s in servicios)
+                        if (ultimoEstado.Id == 1) //El ultimo estado es presupuesto
                         {
-                            precioFinal += Precio_Servicio(s.Id);
-                        }
+                            lblCodigo.Text = "#" + orden.Id.ToString("000000");
+                            lblFecha.Text = "Fecha: " + ((DateTime)orden.fecha).ToShortDateString();
 
-                        lblTotal.Text = precioFinal.ToString();
+                            lblVehiculo.Text = "Patente: " + orden.Vehiculo.patente + " - Modelo: " + orden.Vehiculo.Modelo.nombre + " - Año: " + orden.Vehiculo.anio;
+
+                            lblCliente.Text = orden.Cliente.apellido + ", " + orden.Cliente.nombre + " - DNI: " + orden.Cliente.dni;
+
+                            lblVencimiento.Text += orden.fecha.Value.AddDays(15).ToShortDateString();
+
+                            lblOperario.Text += User.Identity.GetUserName();
+
+                            List<Servicio> servicios = new List<Servicio>();
+
+                            foreach (OrdenesServicio os in orden.OrdenesServicios)
+                            {
+
+                                servicios.Add(os.Servicio);
+
+                            }
+
+                            listaServicios.DataSource = servicios;
+                            listaServicios.DataBind();
+
+                            float precioFinal = 0;
+                            foreach (Servicio s in servicios)
+                            {
+                                precioFinal += Precio_Servicio(s.Id);
+                            }
+
+                            lblTotal.Text = precioFinal.ToString();
+                        }
+                        else
+                        {
+                            divPresupeusto.Visible = false;
+                            divError.Visible = true;
+                            txtError.Text = "La orden ya fue emitida.";
+                        }
+                        
                     }
                     else
                     {
-                        Response.Redirect("~/Error404");
+                        divPresupeusto.Visible = false;
+                        divError.Visible = true;
+                        txtError.Text = "Nº de orden no encontrado.";
                     }
                 }
             }
@@ -58,7 +78,7 @@ namespace Aplicada.Operario
             {
                 Response.Redirect("~/Error404.aspx");
             }
-            
+ 
         }
 
         protected float Precio_Servicio(int id)
@@ -84,46 +104,6 @@ namespace Aplicada.Operario
             }
         }
 
-        protected void Emitir(object sender, EventArgs e)
-        {
-
-            using (var db = new Entities1())
-            {
-                
-                int id= Int32.Parse(Request.Params["id"]);
-                Ordene orden= db.Ordenes.Where(x => x.Id == id).FirstOrDefault();
-
-                List<Servicio> servicios = new List<Servicio>();
-                foreach (OrdenesServicio os in orden.OrdenesServicios)
-                {
-                    servicios.Add(os.Servicio);
-                }
-
-                bool falta = false;
-                foreach (Servicio s in servicios)
-                {
-                    
-                    foreach(ServiciosProducto sp in s.ServiciosProductos){
-
-                        if (sp.Producto.stock < 1)
-                        {
-                            falta = true;
-                        }
-
-                    }
-                }
-
-                if (falta)
-                {
-                    lblMessage.Text = "Uno o varios servicios no disponibles por falta de stock";
-                }
-                else
-                {
-                    Response.Redirect("~/Operario/EmitirOrden.aspx?id=" + Request.Params["id"]);
-                }
-            }
-
-        }
-
+        
     }
 }

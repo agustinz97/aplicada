@@ -164,6 +164,7 @@
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\UserRole.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Caja\Buscar.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\sb-admin.css" />
@@ -1778,7 +1779,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Operario\EmitirOrden.aspx" />
+    <Content Include="Operario\buscar.aspx" />
     <Content Include="Operario\NuevaOrden.aspx" />
     <Content Include="Operario\Presupuesto.aspx" />
     <Content Include="packages.config" />
@@ -2107,6 +2108,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Caja\Buscar.aspx.cs">
+      <DependentUpon>Buscar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Caja\Buscar.aspx.designer.cs">
+      <DependentUpon>Buscar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2134,6 +2142,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categoria.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs">
@@ -2188,12 +2199,12 @@
     <Compile Include="Models\Vehiculo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Operario\EmitirOrden.aspx.cs">
-      <DependentUpon>EmitirOrden.aspx</DependentUpon>
+    <Compile Include="Operario\buscar.aspx.cs">
+      <DependentUpon>buscar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Operario\EmitirOrden.aspx.designer.cs">
-      <DependentUpon>EmitirOrden.aspx</DependentUpon>
+    <Compile Include="Operario\buscar.aspx.designer.cs">
+      <DependentUpon>buscar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Operario\NuevaOrden.aspx.cs">
       <DependentUpon>NuevaOrden.aspx</DependentUpon>

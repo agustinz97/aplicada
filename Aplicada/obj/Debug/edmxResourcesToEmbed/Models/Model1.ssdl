@@ -61,6 +61,13 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="32" />
+  </EntityType>
   <EntityType Name="Clientes">
     <Key>
       <PropertyRef Name="Id" />
@@ -104,6 +111,8 @@
     <Property Name="cliente_id" Type="int" />
     <Property Name="mecanico_id" Type="nvarchar" MaxLength="128" />
     <Property Name="fecha" Type="datetime" />
+    <Property Name="operario_id" Type="nchar" MaxLength="128" />
+    <Property Name="forma_pago" Type="int" />
   </EntityType>
   <EntityType Name="OrdenesEstados">
     <Key>
@@ -113,6 +122,7 @@
     <Property Name="orden_id" Type="int" />
     <Property Name="estado_id" Type="int" />
     <Property Name="fecha" Type="datetime" />
+    <Property Name="usuario_id" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="OrdenesServicios">
     <Key>
@@ -139,6 +149,7 @@
     <Property Name="nombre" Type="varchar" MaxLength="100" />
     <Property Name="precio_base" Type="float" />
     <Property Name="modelo_id" Type="int" />
+    <Property Name="categoria" Type="int" />
   </EntityType>
   <EntityType Name="ServiciosProductos">
     <Key>
@@ -230,6 +241,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__OrdenesEs__usuar__02FC7413">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="OrdenesEstados" Type="Self.OrdenesEstados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenesEstados">
+        <PropertyRef Name="usuario_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__OrdenesSe__orden__6B24EA82">
     <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
     <End Role="OrdenesServicios" Type="Self.OrdenesServicios" Multiplicity="*" />
@@ -251,6 +274,18 @@
       </Principal>
       <Dependent Role="OrdenesServicios">
         <PropertyRef Name="servicio_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Servicios__categ__160F4887">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+    <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Servicios">
+        <PropertyRef Name="categoria" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -377,6 +412,7 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="dbo" store:Type="Tables" />
@@ -412,6 +448,10 @@
       <End Role="Ordenes" EntitySet="Ordenes" />
       <End Role="OrdenesEstados" EntitySet="OrdenesEstados" />
     </AssociationSet>
+    <AssociationSet Name="FK__OrdenesEs__usuar__02FC7413" Association="Self.FK__OrdenesEs__usuar__02FC7413">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="OrdenesEstados" EntitySet="OrdenesEstados" />
+    </AssociationSet>
     <AssociationSet Name="FK__OrdenesSe__orden__6B24EA82" Association="Self.FK__OrdenesSe__orden__6B24EA82">
       <End Role="Ordenes" EntitySet="Ordenes" />
       <End Role="OrdenesServicios" EntitySet="OrdenesServicios" />
@@ -419,6 +459,10 @@
     <AssociationSet Name="FK__OrdenesSe__servi__6C190EBB" Association="Self.FK__OrdenesSe__servi__6C190EBB">
       <End Role="Servicios" EntitySet="Servicios" />
       <End Role="OrdenesServicios" EntitySet="OrdenesServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Servicios__categ__160F4887" Association="Self.FK__Servicios__categ__160F4887">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Servicios" EntitySet="Servicios" />
     </AssociationSet>
     <AssociationSet Name="FK__Servicios__model__47DBAE45" Association="Self.FK__Servicios__model__47DBAE45">
       <End Role="Modelos" EntitySet="Modelos" />

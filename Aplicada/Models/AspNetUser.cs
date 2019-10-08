@@ -21,6 +21,7 @@ namespace Aplicada.Models
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.Ordenes = new HashSet<Ordene>();
+            this.OrdenesEstados = new HashSet<OrdenesEstado>();
         }
     
         public string Id { get; set; }
@@ -44,5 +45,7 @@ namespace Aplicada.Models
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ordene> Ordenes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdenesEstado> OrdenesEstados { get; set; }
     }
 }
