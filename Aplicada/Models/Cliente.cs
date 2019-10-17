@@ -17,8 +17,8 @@ namespace Aplicada.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.Vehiculos = new HashSet<Vehiculo>();
             this.Ordenes = new HashSet<Ordene>();
+            this.Vehiculos = new HashSet<Vehiculo>();
         }
     
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace Aplicada.Models
         public string email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vehiculo> Vehiculos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ordene> Ordenes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vehiculo> Vehiculos { get; set; }
     }
 }

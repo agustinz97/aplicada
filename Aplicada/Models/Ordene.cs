@@ -31,10 +31,10 @@ namespace Aplicada.Models
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Cliente Cliente { get; set; }
-        public virtual Vehiculo Vehiculo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenesEstado> OrdenesEstados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenesServicio> OrdenesServicios { get; set; }
+        public virtual Vehiculo Vehiculo { get; set; }
     }
 }

@@ -17,21 +17,22 @@ namespace Aplicada.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Servicio()
         {
-            this.ServiciosProductos = new HashSet<ServiciosProducto>();
             this.OrdenesServicios = new HashSet<OrdenesServicio>();
+            this.ServiciosProductos = new HashSet<ServiciosProducto>();
+            this.ServiciosModelos = new HashSet<ServiciosModelo>();
         }
     
         public int Id { get; set; }
         public string nombre { get; set; }
         public Nullable<double> precio_base { get; set; }
-        public Nullable<int> modelo_id { get; set; }
         public Nullable<int> categoria { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiciosProducto> ServiciosProductos { get; set; }
-        public virtual Modelo Modelo { get; set; }
+        public virtual Categoria Categoria1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenesServicio> OrdenesServicios { get; set; }
-        public virtual Categoria Categoria1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiciosProducto> ServiciosProductos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiciosModelo> ServiciosModelos { get; set; }
     }
 }

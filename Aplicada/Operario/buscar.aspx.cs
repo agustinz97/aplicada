@@ -50,7 +50,7 @@ namespace Aplicada.Operario
                     }
                     else
                     {
-                        orden = db.Ordenes.Where(x => x.Vehiculo.patente == query).FirstOrDefault();
+                        orden = db.Ordenes.Where(x => x.Vehiculo.patente == query).OrderByDescending(x => x.Id).FirstOrDefault();
                     }
 
                     if (orden != null)
@@ -72,7 +72,7 @@ namespace Aplicada.Operario
                                 divMecanico.Visible = true;
                                 using (var context = new Entities1())
                                 {
-                                    List<AspNetUser> mecanicos = new List<AspNetUser>();
+                                    List<Empleado> mecanicos = new List<Empleado>();
 
                                     foreach (var user in context.AspNetUsers)
                                     {
@@ -97,7 +97,13 @@ namespace Aplicada.Operario
 
                                             if (!ocupado)
                                             {
-                                                mecanicos.Add(user);
+                                                Empleado emp = context.Empleados.Where(x => x.usuario_id == user.Id).FirstOrDefault();
+
+                                                if (emp != null)
+                                                {
+                                                    mecanicos.Add(emp);
+                                                }
+
                                             }
                                         }
                                     }
@@ -171,16 +177,37 @@ namespace Aplicada.Operario
 
                                 if (ddMecanicos.SelectedIndex > 0)
                                 {
-                                    OrdenesEstado oe = new OrdenesEstado();
-                                    oe.fecha = DateTime.Now;
-                                    oe.estado_id = 2;
-                                    oe.usuario_id = User.Identity.GetUserId();
-                                    orden.OrdenesEstados.Add(oe);
-                                    orden.mecanico_id = ddMecanicos.SelectedValue;
+                                    bool falta = false;
+                                    foreach (OrdenesServicio os in orden.OrdenesServicios)
+                                    {
+                                        int idServicio = os.servicio_id.Value;
+                                        if (Falta_Producto(idServicio, 1))
+                                        {
+                                            falta = true;
+                                        }
+                                    }
 
-                                    db.SaveChanges();
+                                    if (!falta)
+                                    {
+                                        OrdenesEstado oe = new OrdenesEstado();
+                                        oe.estado_id = 2;
+                                        oe.fecha = DateTime.Now;
+                                        oe.usuario_id = User.Identity.GetUserId();
+                                        orden.OrdenesEstados.Add(oe);
 
-                                    lblMessage.Text = "Orden enviada a taller.";
+                                        int idEmpleado = Int32.Parse(ddMecanicos.SelectedValue);
+                                        Empleado emp = db.Empleados.Where(x => x.Id == idEmpleado).FirstOrDefault();
+
+                                        orden.mecanico_id = emp.usuario_id;
+
+                                        db.SaveChanges();
+
+                                        lblMessage.Text = "Orden enviada a taller";
+                                    }
+                                    else
+                                    {
+                                        lblMessage.Text = "Hay faltante de productos";
+                                    }
                                 }
                                 else
                                 {
@@ -202,6 +229,32 @@ namespace Aplicada.Operario
             {
                 lblMessage.Text = "No hay una orden seleccionada";
             }
+        }
+
+        protected bool Falta_Producto(int id, int cantidad)
+        {
+
+            using (var db = new Entities1())
+            {
+
+                Servicio s = db.Servicios.Where(x => x.Id == id).FirstOrDefault();
+
+                foreach (ServiciosProducto sp in s.ServiciosProductos)
+                {
+                    if (sp.Producto.stock < cantidad)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+        }
+
+        protected void Ver(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Operario/Presupuesto?id="+txtId.Text);
         }
     }
 }

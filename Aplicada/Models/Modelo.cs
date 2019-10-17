@@ -17,8 +17,8 @@ namespace Aplicada.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Modelo()
         {
+            this.ServiciosModelos = new HashSet<ServiciosModelo>();
             this.Vehiculos = new HashSet<Vehiculo>();
-            this.Servicios = new HashSet<Servicio>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace Aplicada.Models
     
         public virtual Marca Marca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vehiculo> Vehiculos { get; set; }
+        public virtual ICollection<ServiciosModelo> ServiciosModelos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Servicio> Servicios { get; set; }
+        public virtual ICollection<Vehiculo> Vehiculos { get; set; }
     }
 }

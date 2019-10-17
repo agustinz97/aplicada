@@ -31,17 +31,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Vehiculos">
-      <EntityTypeMapping TypeName="Model.Vehiculo">
-        <MappingFragment StoreEntitySet="Vehiculos">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="patente" ColumnName="patente" />
-          <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
-          <ScalarProperty Name="anio" ColumnName="anio" />
-          <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="C__MigrationHistory">
       <EntityTypeMapping TypeName="Model.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -100,19 +89,9 @@
     <EntitySetMapping Name="Productos">
       <EntityTypeMapping TypeName="Model.Producto">
         <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
           <ScalarProperty Name="stock" ColumnName="stock" />
           <ScalarProperty Name="precio" ColumnName="precio" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Servicios">
-      <EntityTypeMapping TypeName="Model.Servicio">
-        <MappingFragment StoreEntitySet="Servicios">
-          <ScalarProperty Name="categoria" ColumnName="categoria" />
-          <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
-          <ScalarProperty Name="precio_base" ColumnName="precio_base" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -181,6 +160,47 @@
         <MappingFragment StoreEntitySet="Categorias">
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleados">
+      <EntityTypeMapping TypeName="Model.Empleado">
+        <MappingFragment StoreEntitySet="Empleados">
+          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiciosModelos">
+      <EntityTypeMapping TypeName="Model.ServiciosModelo">
+        <MappingFragment StoreEntitySet="ServiciosModelos">
+          <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
+          <ScalarProperty Name="servicio_id" ColumnName="servicio_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servicios">
+      <EntityTypeMapping TypeName="Model.Servicio">
+        <MappingFragment StoreEntitySet="Servicios">
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculos">
+      <EntityTypeMapping TypeName="Model.Vehiculo">
+        <MappingFragment StoreEntitySet="Vehiculos">
+          <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="modelo_id" ColumnName="modelo_id" />
+          <ScalarProperty Name="patente" ColumnName="patente" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

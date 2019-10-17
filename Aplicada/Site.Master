@@ -28,7 +28,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Sistema de taller</a>
+      <h1 class="navbar-brand mr-1">Sistema de Taller</h1>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -105,6 +105,18 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <asp:HyperLink NavigateUrl="~/Caja/Buscar.aspx" text="Buscar Orden" runat="server" CssClass="dropdown-item"/>
+        </div>
+      </li>
+      <% }%>
+      <%if (Request.RequestContext.HttpContext.User.IsInRole("Stock") || Request.RequestContext.HttpContext.User.IsInRole("Administrador"))
+        {%>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-file-invoice"></i>
+          <span>Deposito</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <asp:HyperLink NavigateUrl="~/Stock/Stock.aspx" text="Gestionar Stock" runat="server" CssClass="dropdown-item"/>
         </div>
       </li>
       <% }%>

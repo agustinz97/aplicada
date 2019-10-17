@@ -58,7 +58,7 @@
                     <asp:Label Text="Mecanico" runat="server" />
                     <asp:DropDownList runat="server"
                         ID="ddMecanicos"
-                        DataTextField="username"
+                        DataTextField="apellido"
                         DataValueField="id"
                         CssClass="form-control"
                         AutoPostBack="true"
@@ -69,6 +69,7 @@
             </div>
             <div class="form-row my-3">
                 <div class="col-md-12">
+                    <asp:Button Text="Ver orden" runat="server" OnClick="Ver" CssClass="btn btn-primary float-right ml-2"/>
                     <asp:Button Text="Entregar" runat="server" OnClick="Operar" Visible="false" ID="btnEntregar" CssClass="btn btn-success float-right"/>
                     <asp:Button Text="A taller" runat="server" OnClick="Operar" Visible="false" ID="btnTaller" CssClass="btn btn-success float-right"/>
                 </div>

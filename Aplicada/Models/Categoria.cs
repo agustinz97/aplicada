@@ -18,6 +18,7 @@ namespace Aplicada.Models
         public Categoria()
         {
             this.Servicios = new HashSet<Servicio>();
+            this.Productos = new HashSet<Producto>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,7 @@ namespace Aplicada.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servicio> Servicios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Producto> Productos { get; set; }
     }
 }

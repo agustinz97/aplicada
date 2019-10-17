@@ -23,10 +23,6 @@ namespace Aplicada.Operario
 
                     if (orden != null)
                     {
-                        Estado ultimoEstado = orden.OrdenesEstados.OrderByDescending(x => x.fecha).First().Estado;
-
-                        if (ultimoEstado.Id == 1) //El ultimo estado es presupuesto
-                        {
                             lblCodigo.Text = "#" + orden.Id.ToString("000000");
                             lblFecha.Text = "Fecha: " + ((DateTime)orden.fecha).ToShortDateString();
 
@@ -36,7 +32,14 @@ namespace Aplicada.Operario
 
                             lblVencimiento.Text += orden.fecha.Value.AddDays(15).ToShortDateString();
 
-                            lblOperario.Text += User.Identity.GetUserName();
+                            OrdenesEstado oe = orden.OrdenesEstados.Where(x => x.estado_id == 1).First();
+                            Empleado emp = context.Empleados.Where(x => x.usuario_id == oe.usuario_id).FirstOrDefault();
+
+                            if (emp != null)
+                            {
+                                string nombreEmpleado = emp.nombre + " " + emp.apellido;
+                                lblOperario.Text += nombreEmpleado;
+                            }
 
                             List<Servicio> servicios = new List<Servicio>();
 
@@ -57,26 +60,21 @@ namespace Aplicada.Operario
                             }
 
                             lblTotal.Text = precioFinal.ToString();
-                        }
-                        else
-                        {
-                            divPresupeusto.Visible = false;
-                            divError.Visible = true;
-                            txtError.Text = "La orden ya fue emitida.";
-                        }
-                        
-                    }
-                    else
-                    {
+                     }
+                     else
+                     {
                         divPresupeusto.Visible = false;
                         divError.Visible = true;
                         txtError.Text = "Nº de orden no encontrado.";
-                    }
+                     }
+                        
                 }
             }
             else
             {
-                Response.Redirect("~/Error404.aspx");
+                divPresupeusto.Visible = false;
+                divError.Visible = true;
+                txtError.Text = "Nº de orden no encontrado.";
             }
  
         }

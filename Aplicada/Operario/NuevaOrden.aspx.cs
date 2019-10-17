@@ -36,13 +36,11 @@ namespace Aplicada.Operario
             {
                 if (categoria == 0)
                 {
-                    return db.Servicios.Where(x => x.modelo_id == idModelo).ToList();
+                    return db.Servicios.Where(x => x.ServiciosModelos.Any(y => y.Modelo.Id == idModelo)).ToList();
                 }
                 else
                 {
-                    
-                    return db.Servicios.Where(x => x.modelo_id == idModelo)
-                                                    .Where(x => x.Categoria1.id == categoria).ToList();
+                    return db.Servicios.Where(x => x.ServiciosModelos.Any(y => y.Modelo.Id == idModelo) && x.categoria == categoria).ToList();
                 }
             }
         }
@@ -268,7 +266,7 @@ namespace Aplicada.Operario
                     ddServicios.DataBind();
 
                     
-                    List<AspNetUser> mecanicos = new List<AspNetUser>();
+                    List<Empleado> mecanicos = new List<Empleado>();
                     
                     foreach (var user in context.AspNetUsers)
                     {
@@ -293,7 +291,13 @@ namespace Aplicada.Operario
 
                             if (!ocupado)
                             {
-                                mecanicos.Add(user);
+                                Empleado emp = context.Empleados.Where(x => x.usuario_id == user.Id).FirstOrDefault();
+
+                                if (emp != null)
+                                {
+                                    mecanicos.Add(emp);
+                                }
+                                
                             }
                         }
                     }
@@ -368,12 +372,6 @@ namespace Aplicada.Operario
                     Ordene orden = new Ordene();
                     orden.fecha = DateTime.Now;
 
-                    OrdenesEstado oe = new OrdenesEstado();
-                    oe.estado_id = 1;
-                    oe.fecha = DateTime.Now;
-                    oe.usuario_id = User.Identity.GetUserId();
-                    orden.OrdenesEstados.Add(oe);
-
                     foreach (Servicio s in serviciosElegidos)
                     {
                         OrdenesServicio os = new OrdenesServicio();
@@ -422,6 +420,12 @@ namespace Aplicada.Operario
 
                     if (btn.ID == btnPresupuesto.ID)
                     {
+                        OrdenesEstado oe = new OrdenesEstado();
+                        oe.estado_id = 1;
+                        oe.fecha = DateTime.Now;
+                        oe.usuario_id = User.Identity.GetUserId();
+                        orden.OrdenesEstados.Add(oe);
+
                         context.Ordenes.Add(orden);
                         context.SaveChanges();
 
@@ -441,11 +445,22 @@ namespace Aplicada.Operario
 
                         if (!falta)
                         {
-                            oe.estado_id = 2;
+                            OrdenesEstado oe = new OrdenesEstado();
+                            oe.estado_id = 1;
                             oe.fecha = DateTime.Now;
                             oe.usuario_id = User.Identity.GetUserId();
                             orden.OrdenesEstados.Add(oe);
-                            orden.mecanico_id = ddMecanicos.SelectedValue;
+
+                            OrdenesEstado oe2 = new OrdenesEstado();
+                            oe2.estado_id = 2;
+                            oe2.fecha = DateTime.Now;
+                            oe2.usuario_id = User.Identity.GetUserId();
+                            orden.OrdenesEstados.Add(oe2);
+
+                            int idEmpleado = Int32.Parse(ddMecanicos.SelectedValue);
+                            Empleado empleado = context.Empleados.Where(x => x.Id == idEmpleado).First();
+
+                            orden.mecanico_id = empleado.usuario_id;
 
                             context.Ordenes.Add(orden);
                             context.SaveChanges();

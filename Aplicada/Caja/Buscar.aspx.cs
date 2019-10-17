@@ -46,7 +46,7 @@ namespace Aplicada.Caja
                     }
                     else
                     {
-                        orden = db.Ordenes.Where(x => x.Vehiculo.patente == query).FirstOrDefault();
+                        orden = db.Ordenes.Where(x => x.Vehiculo.patente == query).OrderByDescending(x => x.Id).FirstOrDefault();
                     }
 
                     if (orden != null)

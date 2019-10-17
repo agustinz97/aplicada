@@ -192,7 +192,7 @@
                         <asp:Label Text="Mecanico" runat="server" />
                         <asp:DropDownList runat="server" 
                                           ID="ddMecanicos" 
-                                          DataTextField="username" 
+                                          DataTextField="apellido" 
                                           DataValueField="id"
                                           CssClass="form-control"
                                           AutoPostBack="true"
